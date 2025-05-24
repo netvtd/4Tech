@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4Tech - Магазин консолей</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html">4Tech</a>
+        </div>
+        <nav>
+            <a href="index.html">Главная</a>
+            <a href="products.html">Магазин</a>
+            <a href="#" id="cart-icon"><i class="fas fa-shopping-cart"></i> Корзина (<span id="cart-count">0</span>)</a>
+        </nav>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Добро пожаловать в 4Tech</h1>
+                <p>Окунитесь в мир игр с лучшими консолями по выгодным ценам</p>
+                <a href="products.html" class="button">Перейти в магазин</a>
+            </div>
+        </section>
+        <section class="featured-products">
+            <h2 class="section-title">Популярные консоли</h2>
+            <div class="product-grid">
+                <div class="product-item" data-id="1" data-name="PlayStation 5" data-price="54990"
+                    data-image="images/ps5.png" data-type="new">
+                    <img src="images/ps5.png" alt="PlayStation 5">
+                    <h3>PlayStation 5</h3>
+                    <p class="price">54 990 ₽</p>
+                    <button class="add-to-cart">В корзину</button>
+                </div>
+                <div class="product-item" data-id="2" data-name="Xbox Series X" data-price="49990"
+                    data-image="images/xbox.png" data-type="new">
+                    <img src="images/xbox.png" alt="Xbox Series X">
+                    <h3>Xbox Series X</h3>
+                    <p class="price">49 990 ₽</p>
+                    <button class="add-to-cart">В корзину</button>
+                </div>
+                <div class="product-item" data-id="3" data-name="Nintendo Switch" data-price="29990"
+                    data-image="images/switch.png" data-type="new">
+                    <img src="images/switch.png" alt="Nintendo Switch">
+                    <h3>Nintendo Switch</h3>
+                    <p class="price">29 990 ₽</p>
+                    <button class="add-to-cart">В корзину</button>
+                </div>
+                <div class="product-item" data-id="4" data-name="PlayStation 4 Pro" data-price="34990"
+                    data-image="images/ps4pro.png" data-type="vintage">
+                    <img src="images/ps4pro.png" alt="PlayStation 4 Pro">
+                    <h3>PlayStation 4 Pro</h3>
+                    <p class="price">34 990 ₽</p>
+                    <button class="add-to-cart">В корзину</button>
+                </div>
+            </div>
+            <div class="view-all">
+        <a href="products.html" class="button">Смотреть все товары</a>
+            </div>
+        </section>
+        <section class="about-preview">
+            <div class="about-content">
+                <h2 class="section-title">О нас</h2>
+                <p>4Tech - это магазин игровых консолей с более чем 10-летним опытом работы. Мы предлагаем только оригинальную продукцию с официальной гарантией.</p>
+                <a href="about.html" class="button">Подробнее о компании</a>
+            </div>
+        </section>
+        <section class="contact-form-section">
+            <h2 class="section-title">Остались вопросы?</h2>
+            <form id="contactForm" class="contact-form">
+    <div class="form-row">
+        <div class="form-group">
+            <label for="name">Ваше имя</label>
+            <input type="text" id="name" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" class="form-control" required>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="phone">Телефон</label>
+        <input type="tel" id="phone" class="form-control" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="message">Ваш вопрос</label>
+        <textarea id="message" class="form-control" rows="5" required></textarea>
+    </div>
+    
+    <button type="submit" class="button submit-btn">Отправить сообщение</button>
+</form>
+        </section>
+    </main>
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Ваша корзина</h2>
+            <ul id="cart-items">
+                <!-- Items will be added here -->
+            </ul>
+            <div class="cart-summary">
+                <div class="promo-code">
+                    <input type="text" id="promo-code-input" placeholder="Введите промокод">
+                    <button id="apply-promo-code" class="small-button">Применить</button>
+                </div>
+                <p class="total">Итого: <span id="cart-total">0 ₽</span></p>
+            </div>
+            <a href="#" class="button checkout-button">Оформить заказ</a>
+        </div>
+    </div>
+    <div id="product-details-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <div class="product-details-container">
+                <div class="product-gallery">
+                    <img id="main-product-image" class="main-image" src="" alt="">
+                    <div class="thumbnail-container">
+                        <!-- Thumbnails will be added here -->
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <footer>
+    <div class="footer-container">
+        <div class="footer-section social-links">
+            <h4>Мы в соцсетях</h4>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+        
+        <div class="footer-section working-hours">
+            <h4>Часы работы</h4>
+            <p>Пн-Пт: 10:00 - 20:00</p>
+            <p>Сб-Вс: 11:00 - 18:00</p>
+        </div>
+        
+        <div class="footer-section footer-nav">
+            <h4>Навигация</h4>
+            <a href="about.html">О нас</a>
+            <a href="contact.html">Контакты</a>
+        </div>
+    </div>
+    
+    <div class="copyright">
+        <p>&copy; 2025 4Tech. Все права защищены.</p>
+    </div>
+</footer>
+    <script src="script.js"></script>
+</body>
+
+</html>

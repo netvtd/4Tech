@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Магазин консолей | 4Tech</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<!-- Модальное окно корзины -->
+<div id="cart-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2 class="modal-title">Ваша корзина</h2>
+        <ul id="cart-items"></ul>
+        <div class="cart-summary">
+            <input type="text" id="promo-code-input" placeholder="Промокод">
+            <button id="apply-promo-code" class="small-button">Применить</button>
+        </div>
+        <p class="cart-total">Итого: <span id="cart-total">0</span> ₽</p>
+        <button class="button checkout-button">Оформить заказ</button>
+    </div>
+</div>
+
+<!-- Подключите jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html">4Tech</a>
+        </div>
+        <nav>
+            <a href="index.html">Главная</a>
+            <a href="products.html">Магазин</a>
+            <a href="#" id="cart-icon"><i class="fas fa-shopping-cart"></i> Корзина (<span id="cart-count">0</span>)</a>
+        </nav>
+    </header>
+    <main>
+        <section class="products-section">
+            <h1 class="section-title">Магазин консолей</h1>
+            <div class="filters-container">
+                <div class="filters">
+                    <div class="filter-group">
+                        <label for="filter-type">Тип консоли</label>
+                        <select id="filter-type">
+                            <option value="all">Все</option>
+                            <option value="new">Новые</option>
+                            <option value="vintage">Винтажные</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="filter-price">Ценовой диапазон</label>
+                        <select id="filter-price">
+                            <option value="all">Все</option>
+                            <option value="low">До 30 000 ₽</option>
+                            <option value="medium">30 000 - 50 000 ₽</option>
+                            <option value="high">Более 50 000 ₽</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="filter-brand">Бренд</label>
+                        <select id="filter-brand">
+                            <option value="all">Все</option>
+                            <option value="sony">Sony</option>
+                            <option value="microsoft">Microsoft</option>
+                            <option value="nintendo">Nintendo</option>
+                        </select>
+                    </div>
+                    <button id="reset-filters" class="reset-button">Сбросить фильтры</button>
+                </div>
+            </div>
+            <div class="product-grid">
+                <!-- Все товары будут здесь -->
+                <div class="product-item" data-id="1" data-name="PlayStation 5" data-price="54990"
+                    data-image="images/ps5.png" data-type="new" data-brand="sony">
+                    <img src="images/ps5.png" alt="PlayStation 5">
+                    <h3>PlayStation 5</h3>
+                    <p class="price">54 990 ₽</p>
+                    <div class="product-actions">
+                        <button class="view-details">Подробнее</button>
+                        <button class="add-to-cart">В корзину</button>
+                    </div>
+                </div>
+                <div class="product-item" data-id="2" data-name="Xbox Series X" data-price="49990"
+                    data-image="images/xbox.png" data-type="new" data-brand="microsoft">
+                    <img src="images/xbox.png" alt="Xbox Series X">
+                    <h3>Xbox Series X</h3>
+                    <p class="price">49 990 ₽</p>
+                    <div class="product-actions">
+                        <button class="view-details">Подробнее</button>
+                        <button class="add-to-cart">В корзину</button>
+                    </div>
+                </div>
+                <div class="product-item" data-id="3" data-name="Nintendo Switch" data-price="29990"
+                    data-image="images/switch.png" data-type="new" data-brand="nintendo">
+                    <img src="images/switch.png" alt="Nintendo Switch">
+                    <h3>Nintendo Switch</h3>
+                    <p class="price">29 990 ₽</p>
+                    <div class="product-actions">
+                        <button class="view-details">Подробнее</button>
+                        <button class="add-to-cart">В корзину</button>
+                    </div>
+                </div>
+                <div class="product-item" data-id="4" data-name="PlayStation 4 Pro" data-price="34990"
+                    data-image="images/ps4pro.png" data-type="vintage" data-brand="sony">
+                    <img src="images/ps4pro.png" alt="PlayStation 4 Pro">
+                    <h3>PlayStation 4 Pro</h3>
+                    <p class="price">34 990 ₽</p>
+                    <div class="product-actions">
+                        <button class="view-details">Подробнее</button>
+                        <button class="add-to-cart">В корзину</button>
+                    </div>
+                </div>
+                <div class="product-item" data-id="5" data-name="Xbox One X" data-price="27990"
+                    data-image="images/xboxonex.png" data-type="vintage" data-brand="microsoft">
+                    <img src="images/xboxonex.png" alt="Xbox One X">
+                    <h3>Xbox One X</h3>
+                    <p class="price">27 990 ₽</p>
+                    <div class="product-actions">
+                        <button class="view-details">Подробнее</button>
+                        <button class="add-to-cart">В корзину</button>
+                    </div>
+                </div>
+                <div class="product-item" data-id="6" data-name="Nintendo 3DS" data-price="14990"
+                    data-image="images/nintendo3ds.png" data-type="vintage" data-brand="nintendo">
+                    <img src="images/nintendo3ds.png" alt="Nintendo 3DS">
+                    <h3>Nintendo 3DS</h3>
+                    <p class="price">14 990 ₽</p>
+                    <div class="product-actions">
+                        <button class="view-details">Подробнее</button>
+                        <button class="add-to-cart">В корзину</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Модальное окно деталей товара -->
+<div id="product-details-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <div class="product-details-container">
+            <div class="product-gallery">
+                <img id="main-product-image" class="main-image" src="" alt="">
+                <div class="thumbnail-container"></div>
+            </div>
+            <div class="product-info">
+                <h2 id="product-name"></h2>
+                <p class="product-price" id="product-price"></p>
+                <p class="product-description" id="product-description"></p>
+                
+                <div class="product-specs">
+                    <h3>Характеристики</h3>
+                    <div class="spec-item">
+                        <span class="spec-title">Производитель:</span>
+                        <span class="spec-value" id="spec-manufacturer"></span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-title">Год выпуска:</span>
+                        <span class="spec-value" id="spec-year"></span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-title">Процессор:</span>
+                        <span class="spec-value" id="spec-cpu"></span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-title">Графика:</span>
+                        <span class="spec-value" id="spec-gpu"></span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-title">Память:</span>
+                        <span class="spec-value" id="spec-memory"></span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-title">Накопитель:</span>
+                        <span class="spec-value" id="spec-storage"></span>
+                    </div>
+                </div>
+                
+                <button class="button add-to-cart">Добавить в корзину</button>
+            </div>
+        </div>
+    </div>
+</div>
+    </main>
+    <footer>
+    <div class="footer-container">
+        <div class="footer-section social-links">
+            <h4>Мы в соцсетях</h4>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+        
+        <div class="footer-section working-hours">
+            <h4>Часы работы</h4>
+            <p>Пн-Пт: 10:00 - 20:00</p>
+            <p>Сб-Вс: 11:00 - 18:00</p>
+        </div>
+        
+        <div class="footer-section footer-nav">
+            <h4>Навигация</h4>
+            <a href="about.html">О нас</a>
+            <a href="contact.html">Контакты</a>
+        </div>
+    </div>
+    
+    <div class="copyright">
+        <p>&copy; 2025 4Tech. Все права защищены.</p>
+    </div>
+</footer>
+    <!-- Модальные окна (аналогично index.html) -->
+    <script src="script.js"></script>
+</body>
+
+</html>
